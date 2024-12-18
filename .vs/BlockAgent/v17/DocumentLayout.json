@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\projects\\blockagent\\BlockAgent\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2C204BA3-C8AA-4A5C-8F56-8FB8F9A7E706}|ConsoleApp1\\ConsoleApp1.csproj|c:\\projects\\blockagent\\blockagent\\consoleapp1\\unifiedworkstationagent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C204BA3-C8AA-4A5C-8F56-8FB8F9A7E706}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\unifiedworkstationagent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UnifiedWorkstationAgent.cs",
+              "DocumentMoniker": "C:\\projects\\blockagent\\BlockAgent\\ConsoleApp1\\UnifiedWorkstationAgent.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\UnifiedWorkstationAgent.cs",
+              "ToolTip": "C:\\projects\\blockagent\\BlockAgent\\ConsoleApp1\\UnifiedWorkstationAgent.cs",
+              "RelativeToolTip": "ConsoleApp1\\UnifiedWorkstationAgent.cs",
+              "ViewState": "AQIAAFkAAAAAAAAAAAAwwGgAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-18T12:17:50.722Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

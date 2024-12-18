@@ -1,0 +1,14 @@
+C:\projects\blockagent\BlockAgent\ConsoleApp1\bin\Debug\net8.0\agent.exe
+C:\projects\blockagent\BlockAgent\ConsoleApp1\bin\Debug\net8.0\agent.deps.json
+C:\projects\blockagent\BlockAgent\ConsoleApp1\bin\Debug\net8.0\agent.runtimeconfig.json
+C:\projects\blockagent\BlockAgent\ConsoleApp1\bin\Debug\net8.0\agent.dll
+C:\projects\blockagent\BlockAgent\ConsoleApp1\bin\Debug\net8.0\agent.pdb
+C:\projects\blockagent\BlockAgent\ConsoleApp1\obj\Debug\net8.0\agent.GeneratedMSBuildEditorConfig.editorconfig
+C:\projects\blockagent\BlockAgent\ConsoleApp1\obj\Debug\net8.0\agent.AssemblyInfoInputs.cache
+C:\projects\blockagent\BlockAgent\ConsoleApp1\obj\Debug\net8.0\agent.AssemblyInfo.cs
+C:\projects\blockagent\BlockAgent\ConsoleApp1\obj\Debug\net8.0\agent.csproj.CoreCompileInputs.cache
+C:\projects\blockagent\BlockAgent\ConsoleApp1\obj\Debug\net8.0\agent.dll
+C:\projects\blockagent\BlockAgent\ConsoleApp1\obj\Debug\net8.0\refint\agent.dll
+C:\projects\blockagent\BlockAgent\ConsoleApp1\obj\Debug\net8.0\agent.pdb
+C:\projects\blockagent\BlockAgent\ConsoleApp1\obj\Debug\net8.0\agent.genruntimeconfig.cache
+C:\projects\blockagent\BlockAgent\ConsoleApp1\obj\Debug\net8.0\ref\agent.dll
