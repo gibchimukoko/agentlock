@@ -12,3 +12,4 @@ C:\projects\blockagent\BlockAgent\ConsoleApp1\obj\Debug\net8.0\refint\agent.dll
 C:\projects\blockagent\BlockAgent\ConsoleApp1\obj\Debug\net8.0\agent.pdb
 C:\projects\blockagent\BlockAgent\ConsoleApp1\obj\Debug\net8.0\agent.genruntimeconfig.cache
 C:\projects\blockagent\BlockAgent\ConsoleApp1\obj\Debug\net8.0\ref\agent.dll
+C:\projects\blockagent\BlockAgent\ConsoleApp1\obj\Debug\net8.0\agent.sourcelink.json

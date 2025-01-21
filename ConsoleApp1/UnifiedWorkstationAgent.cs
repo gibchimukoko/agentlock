@@ -25,9 +25,9 @@ namespace agent
 
             // Set up the HTTP listener
             HttpListener listener = new HttpListener();
-            listener.Prefixes.Add("http://localhost:5000/workstationId/"); // Get workstation ID
-            listener.Prefixes.Add("http://localhost:5000/lock/"); // Lock the workstation
-            listener.Prefixes.Add("http://localhost:5000/unlock/"); // Simulate unlocking
+            listener.Prefixes.Add("http://localhost:5000/workstationId/"); 
+            listener.Prefixes.Add("http://localhost:5000/lock/"); 
+            listener.Prefixes.Add("http://localhost:5000/unlock/"); 
             listener.Start();
 
             Console.WriteLine("Agent is running...");
@@ -75,29 +75,32 @@ namespace agent
             }
         }
 
-        private static void HandleWorkstationIdRequest(HttpListenerResponse response, string workstationId)
-        {
-            try
-            {
-                // Create the response payload
-                var responsePayload = new { workstationId = workstationId };
-                string jsonResponse = JsonSerializer.Serialize(responsePayload);
+       private static void HandleWorkstationIdRequest(HttpListenerResponse response, string workstationId)
+{
+    try
+    {
+        // Get the current logged-in user
+        string userName = Environment.UserName;
 
-                // Write the response
-                byte[] buffer = System.Text.Encoding.UTF8.GetBytes(jsonResponse);
-                response.ContentLength64 = buffer.Length;
-                response.ContentType = "application/json";
-                response.StatusCode = 200;
-                response.OutputStream.Write(buffer, 0, buffer.Length);
-                response.OutputStream.Close();
+        // Create the response payload
+        var responsePayload = new { workstationId = workstationId, userName = userName };
+        string jsonResponse = JsonSerializer.Serialize(responsePayload);
 
-                Console.WriteLine($"Responded with workstation ID: {workstationId}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in HandleWorkstationIdRequest: {ex.Message}");
-            }
-        }
+        // Write the response
+        byte[] buffer = System.Text.Encoding.UTF8.GetBytes(jsonResponse);
+        response.ContentLength64 = buffer.Length;
+        response.ContentType = "application/json";
+        response.StatusCode = 200;
+        response.OutputStream.Write(buffer, 0, buffer.Length);
+        response.OutputStream.Close();
+
+        Console.WriteLine($"Responded with workstation ID: {workstationId}, User: {userName}");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error in HandleWorkstationIdRequest: {ex.Message}");
+    }
+}
 
         private static void HandleLockRequest(HttpListenerResponse response)
         {

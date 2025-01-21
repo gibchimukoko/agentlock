@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\projects\\blockagent\\BlockAgent\\ConsoleApp1\\agent.csproj": {}
+    "c:\\projects\\blockagent\\BlockAgent\\ConsoleApp1\\agent.csproj": {}
   },
   "projects": {
-    "C:\\projects\\blockagent\\BlockAgent\\ConsoleApp1\\agent.csproj": {
+    "c:\\projects\\blockagent\\BlockAgent\\ConsoleApp1\\agent.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projects\\blockagent\\BlockAgent\\ConsoleApp1\\agent.csproj",
+        "projectUniqueName": "c:\\projects\\blockagent\\BlockAgent\\ConsoleApp1\\agent.csproj",
         "projectName": "agent",
-        "projectPath": "C:\\projects\\blockagent\\BlockAgent\\ConsoleApp1\\agent.csproj",
+        "projectPath": "c:\\projects\\blockagent\\BlockAgent\\ConsoleApp1\\agent.csproj",
         "packagesPath": "C:\\Users\\gibch\\.nuget\\packages\\",
-        "outputPath": "C:\\projects\\blockagent\\BlockAgent\\ConsoleApp1\\obj\\",
+        "outputPath": "c:\\projects\\blockagent\\BlockAgent\\ConsoleApp1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\gibch\\AppData\\Roaming\\NuGet\\NuGet.Config",
