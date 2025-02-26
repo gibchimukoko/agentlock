@@ -20,18 +20,39 @@ namespace UnifiedWorkstationAgent
         {
             string workstationId = Environment.MachineName;
 
+            // Get the hostname or IP address to bind to
+            string hostname = Dns.GetHostName(); // Use the workstation's hostname
+            IPAddress[] addresses = Dns.GetHostAddresses(hostname); // Resolve hostname to IP addresses
+
+            // Use the first IPv4 address found (or customize as needed)
+            IPAddress ipAddress = addresses.FirstOrDefault(ip => ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+
+            if (ipAddress == null)
+            {
+                Console.WriteLine("No IPv4 address found. Exiting...");
+                return;
+            }
+
             HttpListener listener = new HttpListener();
-            listener.Prefixes.Add("http://localhost:5000/workstationId/");
-            listener.Prefixes.Add("http://localhost:5000/lock/");
-            listener.Prefixes.Add("http://localhost:5000/unlock/");
-            //ConfigureHttps(listener);
+
+            // Bind to the workstation's IP address or hostname
+            listener.Prefixes.Add($"http://{ipAddress}:5000/workstationId/");
+            listener.Prefixes.Add($"http://{ipAddress}:5000/lock/");
+            listener.Prefixes.Add($"http://{ipAddress}:5000/unlock/");
+
+            // Alternatively, bind to the hostname (if DNS is properly configured)
+            // listener.Prefixes.Add($"http://{hostname}:5000/workstationId/");
+            // listener.Prefixes.Add($"http://{hostname}:5000/lock/");
+            // listener.Prefixes.Add($"http://{hostname}:5000/unlock/");
+
+            // Start the listener
             listener.Start();
 
             Console.WriteLine("Agent is running...");
             Console.WriteLine("Listening on:");
-            Console.WriteLine("  - http://localhost:5000/workstationId");
-            Console.WriteLine("  - http://localhost:5000/lock");
-            Console.WriteLine("  - http://localhost:5000/unlock");
+            Console.WriteLine($"  - http://{ipAddress}:5000/workstationId");
+            Console.WriteLine($"  - http://{ipAddress}:5000/lock");
+            Console.WriteLine($"  - http://{ipAddress}:5000/unlock");
 
             while (true)
             {
@@ -163,7 +184,7 @@ namespace UnifiedWorkstationAgent
         private static bool ValidateRequest(HttpListenerRequest request)
         {
             string apiKey = request.Headers["X-API-Key"];
-            return true;
+            return true; // Replace with actual validation logic
         }
 
         /// <summary>
