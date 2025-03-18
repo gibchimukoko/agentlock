@@ -20,30 +20,21 @@ namespace UnifiedWorkstationAgent
         {
             string workstationId = Environment.MachineName;
 
+
             // Get the hostname or IP address to bind to
             string hostname = Dns.GetHostName(); // Use the workstation's hostname
             IPAddress[] addresses = Dns.GetHostAddresses(hostname); // Resolve hostname to IP addresses
 
             // Use the first IPv4 address found (or customize as needed)
             IPAddress ipAddress = addresses.FirstOrDefault(ip => ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
-
-            if (ipAddress == null)
-            {
-                Console.WriteLine("No IPv4 address found. Exiting...");
-                return;
-            }
-
+      
+           
             HttpListener listener = new HttpListener();
 
             // Bind to the workstation's IP address or hostname
             listener.Prefixes.Add($"http://{ipAddress}:5000/workstationId/");
             listener.Prefixes.Add($"http://{ipAddress}:5000/lock/");
             listener.Prefixes.Add($"http://{ipAddress}:5000/unlock/");
-
-            // Alternatively, bind to the hostname (if DNS is properly configured)
-            // listener.Prefixes.Add($"http://{hostname}:5000/workstationId/");
-            // listener.Prefixes.Add($"http://{hostname}:5000/lock/");
-            // listener.Prefixes.Add($"http://{hostname}:5000/unlock/");
 
             // Start the listener
             listener.Start();
@@ -76,7 +67,7 @@ namespace UnifiedWorkstationAgent
 
                     if (request.Url.AbsolutePath == "/workstationId")
                     {
-                        HandleWorkstationIdRequest(response, workstationId);
+                        HandleWorkstationIdRequest(response, workstationId,ipAddress.ToString());
                     }
                     else if (request.Url.AbsolutePath == "/lock")
                     {
@@ -102,12 +93,12 @@ namespace UnifiedWorkstationAgent
         /// Handles requests for retrieving the workstation ID and current logged-in user.
         /// Responds with a JSON payload containing the workstation ID and username.
         /// </summary>
-        private static void HandleWorkstationIdRequest(HttpListenerResponse response, string workstationId)
+        private static void HandleWorkstationIdRequest(HttpListenerResponse response, string workstationId, string ipaddress)
         {
             try
             {
                 string userName = Environment.UserName;
-                var responsePayload = new { workstationId = workstationId, userName = userName };
+                var responsePayload = new { workstationId = workstationId, userName = userName , ip=ipaddress };
                 string jsonResponse = JsonSerializer.Serialize(responsePayload);
 
                 byte[] buffer = Encoding.UTF8.GetBytes(jsonResponse);
@@ -134,16 +125,23 @@ namespace UnifiedWorkstationAgent
             try
             {
                 LogEvent("Lock request received. Locking workstation...");
-                LockWorkStation();
+                bool lockResult = LockWorkStation();
 
-                byte[] buffer = Encoding.UTF8.GetBytes("Workstation locked.");
-                response.ContentLength64 = buffer.Length;
-                response.ContentType = "text/plain";
-                response.StatusCode = 200;
-                response.OutputStream.Write(buffer, 0, buffer.Length);
-                response.OutputStream.Close();
+                if (lockResult)
+                {
+                    byte[] buffer = Encoding.UTF8.GetBytes("Workstation locked.");
+                    response.ContentLength64 = buffer.Length;
+                    response.ContentType = "text/plain";
+                    response.StatusCode = 200;
+                    response.OutputStream.Write(buffer, 0, buffer.Length);
+                    response.OutputStream.Close();
 
-                LogEvent("Workstation locked.");
+                    LogEvent("Workstation locked.");
+                }
+                else
+                {
+                    HandleError(response, 500, "Failed to lock the workstation.");
+                }
             }
             catch (Exception ex)
             {
@@ -232,30 +230,6 @@ namespace UnifiedWorkstationAgent
             response.ContentType = "text/plain";
             response.OutputStream.Write(buffer, 0, buffer.Length);
             response.OutputStream.Close();
-        }
-
-        /// <summary>
-        /// Configures the HTTP listener to support HTTPS for secure communication.
-        /// </summary>
-        private static void ConfigureHttps(HttpListener listener)
-        {
-            X509Store store = new X509Store(StoreName.My, StoreLocation.LocalMachine);
-            store.Open(OpenFlags.ReadOnly);
-            X509Certificate2 certificate = store.Certificates
-                .Find(X509FindType.FindBySubjectName, "localhost", false)
-                .OfType<X509Certificate2>()
-                .FirstOrDefault();
-
-            if (certificate != null)
-            {
-                listener.Prefixes.Add("https://localhost:5001/");
-                listener.AuthenticationSchemes = AuthenticationSchemes.Anonymous;
-                LogEvent("HTTPS configured successfully.");
-            }
-            else
-            {
-                LogEvent("Failed to configure HTTPS: Certificate not found.");
-            }
         }
     }
 }
